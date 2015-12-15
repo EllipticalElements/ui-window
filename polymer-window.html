@@ -1,0 +1,121 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
+<link rel="import" href="../ui-behaviors/dialog.html">
+
+<dom-module id="ui-component">
+    <style>
+        :host .close-icon{
+            font-size:16px;
+        }
+    </style>
+    <template>
+        <header>
+            <div class="close"  aria-hidden="true">
+                <span aria-hidden="true" class="icon-core-cross close-icon"></span>
+            </div>
+            <h3>[[title]]</h3>
+        </header>
+        <section>
+            <content></content>
+        </section>
+        <footer>
+            <button  class="ui-button [[button-size]]" data-cancel>[[cancel-text]]</button>
+            <button class="ui-button [[button-class]]  [[button-size]]" data-action="[[button-role]]">[[button-label]]</button>
+        </footer>
+    </template>
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'ui-window',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Dialog],
+
+        properties: {
+            animationIn:{
+                type:String,
+                value:'none'
+            },
+            animationOut: {
+                type:String,
+                value:'none'
+            },
+            duration: {
+                value:300
+            },
+            height: {
+                value:null
+            },
+            width: {
+                value:null
+            },
+            top: {
+                value:null
+            },
+            bottom: {
+                value:null
+            },
+            left: {
+                value:null
+            },
+            right: {
+                value:null
+            },
+            modal: {
+                type:Boolean,
+                value:false
+            },
+            title: {
+                type:String,
+                value:''
+            },
+            btnActionText: {
+                type:String,
+                value:'Save'
+            },
+            zIndex: {
+                value:110000
+            },
+            setZIndex:{
+                type:Boolean,
+                value:false
+            },
+            opacityCss:{
+                type:String,
+                value:null
+            },
+            cssClass:{
+                type:String,
+                value:null
+            },
+            buttonSize:{
+                type:String,
+                value:''
+            },
+            cancelText:{
+                type:String,
+                value:'Cancel'
+            },
+            buttonLabel:{
+                type:String,
+                value:'Action'
+            },
+            buttonRole:{
+                type:String,
+                value:'action'
+            }
+        },
+
+
+        ready:function(){
+            this._isOpen = false;
+            this._setModalInit();
+            this._initWindow(this.element);
+            this.__events();
+        }
+
+    });
+
+</script>
