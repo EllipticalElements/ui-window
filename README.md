@@ -1,4 +1,4 @@
-UI-COMPONENT
+UI-WINDOW
 ===========================
 
-element for elliptical and polymer web components
+dialog element for elliptical and polymer web components
