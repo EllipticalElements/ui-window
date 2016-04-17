@@ -1,7 +1,7 @@
 {
   "name": "ui-window",
   "description": "dialog web component",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "author": "S. Francis",
   "license": "MIT",
   "repository": {

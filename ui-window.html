@@ -1,11 +1,13 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elliptical-polymer-behaviors/component-behavior.html">
 <link rel="import" href="../ui-behaviors/dialog.html">
 
-<style>
-    ui-window .close-icon{
-        font-size:16px;
-    }
-</style>
-<ui-window parse-attr definition>
+<dom-module id="ui-window">
+    <style>
+        :host .close-icon{
+            font-size:16px;
+        }
+    </style>
     <template>
         <header>
             <div class="close"  aria-hidden="true">
@@ -18,43 +20,113 @@
         </section>
         <footer>
             <button  class="ui-button [[button-size]]" data-cancel>[[cancel-label]]</button>
-            <button class="ui-button [[button-class]]  [[button-size]]" data-action="[[button-role]]">[[button-label]]</button>
+            <button class="ui-button [[button-class]]  [[button-size]]" data-action="[[button-role]]" data-action-button>[[button-label]]</button>
         </footer>
     </template>
-</ui-window>
+</dom-module>
 
 <script>
-    Elliptical(function(){
-        $.element('ui-window',[Elliptical.Behaviors.Dialog],{
-            options: {
-                animationIn:'none',
-                animationOut: 'none',
-                duration: 300,
-                height: null,
-                width: null,
-                top: null,
-                bottom: null,
-                left: null,
-                right: null,
-                modal: false,
-                title: '',
-                buttonLabel: 'Action',
-                cancelLabel:'Cancel',
-                zIndex: 110000,
-                setZIndex:false,
-                opacityCss:null,
-                cssClass:null,
-                buttonRole:'action',
-                disablePhone:false
+
+    Polymer({
+
+        is: 'ui-window',
+
+        behaviors:[Elliptical.ComponentBehavior,Elliptical.Behaviors.Dialog],
+
+        properties: {
+            animationIn:{
+                type:String,
+                value:'none'
             },
-
-            _initElement: function(){
-                this._isOpen = false;
-                this._setModalInit();
-                this._initWindow(this.element);
-                this.__events();
+            animationOut: {
+                type:String,
+                value:'none'
+            },
+            duration: {
+                value:300
+            },
+            height: {
+                value:null
+            },
+            width: {
+                value:null
+            },
+            top: {
+                value:null
+            },
+            bottom: {
+                value:null
+            },
+            left: {
+                value:null
+            },
+            right: {
+                value:null
+            },
+            modal: {
+                type:Boolean,
+                value:false
+            },
+            title: {
+                type:String,
+                value:''
+            },
+            zIndex: {
+                value:110000
+            },
+            setZIndex:{
+                type:Boolean,
+                value:false
+            },
+            opacityCss:{
+                type:String,
+                value:null
+            },
+            cssClass:{
+                type:String,
+                value:null
+            },
+            buttonSize:{
+                type:String,
+                value:' '
+            },
+            cancelLabel:{
+                type:String,
+                value:'Cancel'
+            },
+            buttonLabel:{
+                type:String,
+                value:'Action'
+            },
+            buttonRole:{
+                type:String,
+                value:'action'
+            },
+            buttonClass:{
+                type:String,
+                value:'primary'
             }
+        },
 
-        });
+
+        ready:function(){
+            this._setWindowValues();
+            this._isOpen = false;
+            this._setModalInit();
+            this._initWindow(this.element);
+            this.__events();
+        },
+
+        _setWindowValues:function(){
+            var dataCancel=this.element.find('[data-cancel]');
+            dataCancel.addClass('ui-button');
+            var dataAction=this.element.find('[data-action-button]');
+            dataAction.addClass('ui-button');
+            dataAction.attr('data-action',this.buttonRole);
+            dataAction.addClass(this.buttonClass);
+
+        }
+
     });
+
 </script>
